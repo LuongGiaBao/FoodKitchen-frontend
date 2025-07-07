@@ -10,46 +10,6 @@ const categories = [
   "Thức uống",
 ];
 
-// const allFoods = [
-//   {
-//     id: 1,
-//     name: "Phở Bò Tái",
-//     price: "65,000",
-//     image: "https://images.unsplash.com/photo-1555126634-323283e090fa?w=400",
-//     category: "Phở / Bún / Mì",
-//     rating: 4.8,
-//     description: "Phở bò tái truyền thống với nước dùng đậm đà",
-//   },
-//   {
-//     id: 2,
-//     name: "Bánh Mì Thịt Nướng",
-//     price: "25,000",
-//     image: "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=400",
-//     category: "Đồ ăn nhanh",
-//     rating: 4.6,
-//     description: "Bánh mì giòn với thịt nướng thơm ngon",
-//   },
-//   {
-//     id: 3,
-//     name: "Cơm Tấm Sườn Nướng",
-//     price: "45,000",
-//     image: "https://images.unsplash.com/photo-1559847844-d721426d6edc?w=400",
-//     category: "Cơm",
-//     rating: 4.7,
-//     description: "Cơm tấm với sườn nướng đặc biệt",
-//   },
-//   {
-//     id: 4,
-//     name: "Trà Sữa Trân Châu",
-//     price: "35,000",
-//     image: "https://images.unsplash.com/photo-1525385133512-2f3bdd039054?w=400",
-//     category: "Thức uống",
-//     rating: 4.5,
-//     description: "Trà sữa ngọt ngào với trân châu dai",
-//   },
-//   // ... các món ăn còn lại bạn đã liệt kê
-// ];
-
 const Category = ({ cart, setCart, searchKeyword }) => {
   const [selected, setSelected] = useState("All Items");
   const [foods, setFoods] = useState([]);
@@ -85,11 +45,44 @@ const Category = ({ cart, setCart, searchKeyword }) => {
       return matchCategory && matchSearch;
     });
 
+  // useEffect(() => {
+  //   const loadData = async () => {
+  //     try {
+  //       const res = await fetchAllFood();
+  //       const parsedFoods = res.data.map((item) => {
+  //         return {
+  //           id: item.id,
+  //           name: item.name,
+  //           price: item.price,
+  //           rating: item.rating,
+  //           description: item.description,
+  //           category: item.category || "Unknown",
+  //           image: item.image?.url
+  //             ? `http://localhost:1337${item.image.url}`
+  //             : item.image?.formats?.thumbnail?.url
+  //             ? `http://localhost:1337${item.image.formats.thumbnail.url}`
+  //             : "",
+  //         };
+  //       });
+  //       setFoods(parsedFoods);
+  //     } catch (err) {
+  //       console.error("Error fetching foods:", err);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   loadData();
+  // }, []);
+
   useEffect(() => {
     const loadData = async () => {
       try {
         const res = await fetchAllFood();
         const parsedFoods = res.data.map((item) => {
+          const imageUrl =
+            item.image?.url || item.image?.formats?.thumbnail?.url || "";
+
           return {
             id: item.id,
             name: item.name,
@@ -97,11 +90,7 @@ const Category = ({ cart, setCart, searchKeyword }) => {
             rating: item.rating,
             description: item.description,
             category: item.category || "Unknown",
-            image: item.image?.url
-              ? `http://localhost:1337${item.image.url}`
-              : item.image?.formats?.thumbnail?.url
-              ? `http://localhost:1337${item.image.formats.thumbnail.url}`
-              : "",
+            image: imageUrl,
           };
         });
         setFoods(parsedFoods);
@@ -250,7 +239,6 @@ const Category = ({ cart, setCart, searchKeyword }) => {
             </div>
           )}
         </div>
-       
       </section>
     </>
   );
