@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { fetchAllFood } from "../api/foodApi";
+import food from "../assets/ga-ran.png";
 const categories = [
   "All Items",
   "Popular",
@@ -14,18 +15,6 @@ const Category = ({ cart, setCart, searchKeyword }) => {
   const [selected, setSelected] = useState("All Items");
   const [foods, setFoods] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  // const filteredFoods = allFoods.filter((food) => {
-  //   if (selected === "All Items") return true;
-  //   if (selected === "Popular") return food.rating >= 4.5; // tiêu chí popular
-  //   return food.category === selected;
-  // });
-
-  // const filteredFoods = foods.filter((food) => {
-  //   if (selected === "All Items") return true;
-  //   if (selected === "Popular") return food.rating >= 4.5;
-  //   return food.category === selected;
-  // });
 
   const filteredFoods = foods
     .filter((food) => !!food.name)
@@ -45,43 +34,16 @@ const Category = ({ cart, setCart, searchKeyword }) => {
       return matchCategory && matchSearch;
     });
 
-  // useEffect(() => {
-  //   const loadData = async () => {
-  //     try {
-  //       const res = await fetchAllFood();
-  //       const parsedFoods = res.data.map((item) => {
-  //         return {
-  //           id: item.id,
-  //           name: item.name,
-  //           price: item.price,
-  //           rating: item.rating,
-  //           description: item.description,
-  //           category: item.category || "Unknown",
-  //           image: item.image?.url
-  //             ? `http://localhost:1337${item.image.url}`
-  //             : item.image?.formats?.thumbnail?.url
-  //             ? `http://localhost:1337${item.image.formats.thumbnail.url}`
-  //             : "",
-  //         };
-  //       });
-  //       setFoods(parsedFoods);
-  //     } catch (err) {
-  //       console.error("Error fetching foods:", err);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   loadData();
-  // }, []);
-
   useEffect(() => {
     const loadData = async () => {
       try {
         const res = await fetchAllFood();
         const parsedFoods = res.data.map((item) => {
           const imageUrl =
-            item.image?.url || item.image?.formats?.thumbnail?.url || "";
+            item.image?.formats?.thumbnail?.url ||
+            item.image?.formats?.medium?.url ||
+            item.image?.url ||
+            "";
 
           return {
             id: item.id,
@@ -190,6 +152,10 @@ const Category = ({ cart, setCart, searchKeyword }) => {
                       src={food.image}
                       alt={food.name}
                       className="w-full h-48 sm:h-40 lg:h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = { food };
+                      }}
                     />
 
                     {/* Rating or Popular Badge */}

@@ -1,64 +1,3 @@
-// import React from "react";
-
-// const Cart = ({ cart }) => {
-//   const totalAmount = cart.reduce(
-//     (total, item) => total + item.price * item.quantity,
-//     0
-//   );
-
-//   return (
-//     <div className="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-//       <h2 className="text-2xl font-bold text-gray-800 mb-6">
-//         🛒 Giỏ hàng của bạn
-//       </h2>
-
-//       {cart.length === 0 ? (
-//         <div className="text-center text-gray-500">Giỏ hàng đang trống.</div>
-//       ) : (
-//         <div className="space-y-4">
-//           {cart.map((item) => (
-//             <div
-//               key={item.id}
-//               className="flex items-center justify-between border p-4 rounded-lg shadow-sm"
-//             >
-//               <div className="flex items-center gap-4">
-//                 <img
-//                   src={item.image}
-//                   alt={item.name}
-//                   className="w-16 h-16 object-cover rounded-lg"
-//                 />
-//                 <div>
-//                   <h3 className="font-semibold text-gray-800">{item.name}</h3>
-//                   <p className="text-sm text-gray-500">
-//                     Số lượng: {item.quantity}
-//                   </p>
-//                 </div>
-//               </div>
-
-//               <div className="text-right">
-//                 <p className="font-bold text-[#D73527]">
-//                   {(item.price * item.quantity).toLocaleString("vi-VN")}đ
-//                 </p>
-//               </div>
-//             </div>
-//           ))}
-
-//           <div className="text-right mt-6">
-//             <p className="text-lg font-semibold text-gray-700">
-//               Tổng cộng:{" "}
-//               <span className="text-[#D73527]">
-//                 {totalAmount.toLocaleString("vi-VN")}đ
-//               </span>
-//             </p>
-//           </div>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default Cart;
-
 // Cart.jsx
 import React from "react";
 import { checkoutOrder } from "../api/checkoutApi";
@@ -92,12 +31,6 @@ const Cart = ({ cart, setCart, onClose }) => {
   const removeItem = (id) => {
     setCart((prev) => prev.filter((item) => item.id !== id));
   };
-
-  //   const handleCheckout = () => {
-  //     alert("🎉 Thanh toán thành công!");
-  //     setCart([]); // Xóa giỏ hàng sau khi thanh toán
-  //     onClose();
-  //   };
 
   const handleCheckout = async () => {
     try {
