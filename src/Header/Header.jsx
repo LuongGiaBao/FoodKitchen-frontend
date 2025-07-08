@@ -3,12 +3,13 @@ import logo from "../assets/logo.png";
 import { FiShoppingCart } from "react-icons/fi";
 const title = {
   name: "UNU KITCHEN",
+  description: "Dành tặng sự yêu thương",
 };
 const Header = ({ cart, onCartClick, onSearch }) => {
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
   return (
     <>
-      <header className="bg-red-600 py-4 shadow-md">
+      <header className="bg-[#0C0C1C] py-4 shadow-md">
         <div className="container mx-auto px-4 flex justify-between items-center">
           {/* Logo + Brand */}
           <div
@@ -18,9 +19,16 @@ const Header = ({ cart, onCartClick, onSearch }) => {
             <img
               src={logo}
               alt="logo"
-              className="w-8 h-8 rounded-full bg-white p-1"
+              className="w-10 h-10 rounded-full bg-white p-1"
             />
-            <span className="text-white font-bold text-lg">{title.name}</span>
+            <div className="flex flex-col">
+              <span className="text-orange-600 font-bold text-lg">
+                {title.name}
+              </span>
+              <span className="text-orange-300 font-bold text-lg">
+                {title.description}
+              </span>
+            </div>
           </div>
 
           {/* Search + Cart */}

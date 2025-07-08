@@ -1,11 +1,10 @@
 import React from "react";
 import logobanner from "../assets/welcome banner.png";
 import { sendRequestDish } from "../api/requestDishApi";
-
 const hero = {
-  title: "Welcome to kitchen",
+  title: "Chào mừng đến với bếp yêu thương",
   description:
-    " Experience the authentic flavors of Vietnam with our traditional recipes passed down through generations",
+    "Khám phá những món ăn tuyệt vời và yêu cầu thêm món bạn yêu thích bất cứ lúc nào!",
 };
 
 const Hero = ({ setIsRequestOpen }) => {
@@ -20,16 +19,12 @@ const Hero = ({ setIsRequestOpen }) => {
   return (
     <>
       <section className="bg-[#D73527] rounded-xl opacity-70 text-white p-8 mt-6 mx-4 relative overflow-hidden">
-        <div className="max-w-3xl">
-          <h1 className="text-3xl font-bold mb-4">{hero.title}</h1>
+        <div className="max-w-3xl animate-pulse">
+          <h1 className="text-3xl font-bold mb-4 animate-slide-up ">
+            {hero.title}
+          </h1>
           <p className="text-lg mb-6">{hero.description}</p>
           <div className="flex gap-4">
-            <button className="bg-white text-[#D73527] font-semibold px-6 py-2 rounded-md hover:bg-red-100 transition">
-              Order Now
-            </button>
-            <button className="border border-white text-white font-semibold px-6 py-2 rounded-md hover:bg-white hover:text-[#D73527] transition">
-              View Menu
-            </button>
             <button
               onClick={() => setIsRequestOpen(true)}
               className=" bg-red-500  text-white font-semibold px-6 py-2 rounded-md transition hover:bg-white"
